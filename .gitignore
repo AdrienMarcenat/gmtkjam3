@@ -3,7 +3,7 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-2DGameToolkit/Assets/AssetStoreTools*
+game/Assets/AssetStoreTools*
 
 # Visual Studio cache directory
 .vs/
@@ -24,19 +24,19 @@
 *.pdb
 *.opendb
 
-2DGameToolkit/packages
-2DGameToolkit/logs
-2DGameToolkit/Assets/Resources/Sounds
-2DGameToolkit/Assets/Resources/Sprites
-2DGameToolkitTest/Properties
-2DGameToolkitTest/bin
+game/packages
+game/logs
+game/Assets/Resources/Sounds
+game/Assets/Resources/Sprites
+unittest/Properties
+unittest/bin
 
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
 
 # Unity3D Generated File On Crash Reports
-2DGameToolkit/sysinfo.txt
+game/sysinfo.txt
 
 # Builds
 *.apk
