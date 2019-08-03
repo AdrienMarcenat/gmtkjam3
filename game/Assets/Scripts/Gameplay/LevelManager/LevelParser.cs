@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class LevelParser
 {
-    public static TileCoordinates GenLevel (string filename)
+    public static int GenLevel (string filename)
     {
         filename = Application.streamingAssetsPath + filename;
 
@@ -45,7 +45,7 @@ public static class LevelParser
         GenerateTiles(lines[3], middleY - 1);
 
         // We want a square world
-        return new TileCoordinates (levelSize, levelSize);
+        return levelSize;
     }
 
     private static void GenerateTiles(string tileDescription, int y)

@@ -8,14 +8,14 @@ using UnityEngine.SceneManagement;
 public class LevelManager
 {
     private int m_CurrentLevel = 0;
-    private TileCoordinates m_CurrentLevelDimension;
+    private int m_CurrentLevelDimension;
     private Dictionary<int, string> m_LevelIdToName;
 
     private static string ms_LevelFilename = "/LevelNames.txt";
 
     public LevelManager ()
     {
-        m_CurrentLevelDimension = new TileCoordinates (0, 0);
+        m_CurrentLevelDimension = 0;
         m_LevelIdToName = new Dictionary<int, string> ();
         FillLevelNames (ms_LevelFilename);
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -88,12 +88,12 @@ public class LevelManager
             TileManagerProxy.Get ().Reset ();
             string levelName = GetCurrentLevelName ();
             m_CurrentLevelDimension = LevelParser.GenLevel ("/" + levelName + ".txt");
-            TileCoordinates.ms_Modulo = m_CurrentLevelDimension.x;
+            TileCoordinates.ms_Modulo = m_CurrentLevelDimension;
             new LevelEvent (m_CurrentLevel, true).Push ();
         }
     }
 
-    public TileCoordinates GetLevelDimension ()
+    public int GetLevelDimension ()
     {
         return m_CurrentLevelDimension;
     }

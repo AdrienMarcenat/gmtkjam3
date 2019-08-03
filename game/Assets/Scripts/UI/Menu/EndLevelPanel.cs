@@ -10,7 +10,7 @@ public class EndLevelPanel : MonoBehaviour
 
     public void OnGameEvent (GameFlowEvent gameFlowEvent)
     {
-        if(gameFlowEvent.GetAction() == EGameFlowAction.EndLevelPanel)
+        if(gameFlowEvent.GetAction() == EGameFlowAction.EndLevel)
         {
             gameObject.SetActive(true);
         }
