@@ -47,7 +47,7 @@ public class RuleCommand : Command
     public override void Execute()
     {
         Tile tile = m_Actor.GetComponent<Tile>();
-        tile.EvaluateRule();
+        tile.DoRule();
     }
 
     public override void Undo()

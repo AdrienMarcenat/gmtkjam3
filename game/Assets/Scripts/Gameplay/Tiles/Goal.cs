@@ -1,13 +1,15 @@
 ﻿
 public class Goal : Tile
 {
-    public override void EvaluateRule()
+    public override bool EvaluateRule()
     {
         TileObject tileObject = GetTileObject();
-        if (tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube)
-        {
-            new GameFlowEvent(EGameFlowAction.Win).Push();
-            this.DebugLog("Win");
-        }
+        return tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube;
+    }
+
+    public override void DoRule()
+    {
+        new GameFlowEvent(EGameFlowAction.Win).Push();
+        this.DebugLog("Win");
     }
 }

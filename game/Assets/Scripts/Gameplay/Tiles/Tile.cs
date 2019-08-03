@@ -7,6 +7,8 @@ public enum ETileType
     None,
     Goal,
     Wall,
+    Emitter,
+    Receiver,
 }
 
 public enum EDirection
@@ -22,6 +24,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private ETileType m_Type;
     private TileCoordinates m_Coordinates;
     private CommandStack m_CommandStack = new CommandStack();
+    private bool m_ShoudlDoRule = false;
 
     private int m_X;
     private int m_Y;
@@ -32,7 +35,7 @@ public class Tile : MonoBehaviour
         m_Y = (int)transform.position.y;
         SetCoordinates(new TileCoordinates(m_X, m_Y));
         TileManagerProxy.Get().AddTile(this);
-        this.RegisterAsListener("Game", typeof(UndoTileEvent), typeof(EvaluateRuleEvent));
+        this.RegisterAsListener("Game", typeof(UndoTileEvent), typeof(EvaluateRuleEvent), typeof(DoRuleEvent));
     }
 
     public void OnDestroy()
@@ -44,10 +47,23 @@ public class Tile : MonoBehaviour
     {
         m_CommandStack.Undo();
     }
-
     public void OnGameEvent(EvaluateRuleEvent evaluateRuleEvent)
     {
-        RuleCommand command = new RuleCommand(gameObject);
+        m_ShoudlDoRule = EvaluateRule();
+    }
+
+    public void OnGameEvent(DoRuleEvent doRuleEvent)
+    {
+        Command command = null;
+        if (m_ShoudlDoRule)
+        {
+            command = new RuleCommand(gameObject);
+        }
+        else
+        {
+            command = new NullCommand(gameObject);
+        }
+        m_ShoudlDoRule = false;
         command.Execute();
         PushCommand(command);
     }
@@ -79,7 +95,12 @@ public class Tile : MonoBehaviour
         return TileManagerProxy.Get().GetObjectInTile(GetCoordinates());
     }
 
-    public virtual void EvaluateRule()
+    public virtual bool EvaluateRule()
+    {
+        return false;
+    }
+
+    public virtual void DoRule()
     {
     }
 

@@ -83,6 +83,9 @@ public class TileObject : MonoBehaviour
     public virtual void AddMoveCommand(int xDir, int yDir)
     { }
 
+    public virtual void OnTeleport()
+    { }
+
     protected void PushCommand(Command command)
     {
         m_CommandStack.PushCommand(command);

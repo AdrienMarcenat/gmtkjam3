@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
             new MoveEvent().Push();
             TileManagerProxy.Get().UpdateTileObjects();
             new EvaluateRuleEvent().Push();
+            new DoRuleEvent().Push();
             TileManagerProxy.Get().UpdateTileObjects();
         }
     }

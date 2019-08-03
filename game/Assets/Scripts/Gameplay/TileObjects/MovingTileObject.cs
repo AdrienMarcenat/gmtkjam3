@@ -78,6 +78,10 @@ public class MovingTileObject : TileObject
             transform.position = m_TargetPos;
         }
     }
+    public override void OnTeleport()
+    {
+        StopMovement();
+    }
 
     public override bool EvaluateMoveTo(int xDir, int yDir)
     {
