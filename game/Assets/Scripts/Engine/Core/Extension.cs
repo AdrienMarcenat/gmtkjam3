@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using UnityEngine;
 
 public static class Extension
@@ -49,5 +49,28 @@ public static class Extension
     public static void DebugWarning(this System.Object caller, System.Object message)
     {
         LoggerProxy.Get().Warning("[" + caller.ToString() + "]" + message);
+    }
+
+    public static int ms_PixelPerUnit = 48;
+
+    public static int ToWorldUnit(this int unit)
+    {
+        return unit * ms_PixelPerUnit / 2;
+    }
+
+    public static int ToTileUnit(this int unit)
+    {
+        return (int)(unit * 2 / ms_PixelPerUnit);
+    }
+
+    public static T[] SubArray<T>(this T[] data, int index, int length = -1)
+    {
+        if (length == -1)
+        {
+            length = data.Length - index;
+        }
+        T[] result = new T[length];
+        Array.Copy(data, index, result, 0, length);
+        return result;
     }
 }
