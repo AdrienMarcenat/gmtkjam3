@@ -33,6 +33,11 @@ public class TileManager
         m_TileObjects.Add(tileObject.GetCoordinates(), tileObject);
     }
 
+    public void RemoveTileObject(TileObject tileObject)
+    {
+        m_TileObjects.Remove(tileObject.GetCoordinates());
+    }
+
     public void UpdateTileObjects()
     {
         m_TileObjects.Clear();

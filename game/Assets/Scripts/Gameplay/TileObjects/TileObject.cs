@@ -12,6 +12,7 @@ public enum ETileObjectType
 public class TileObject : MonoBehaviour
 {
     [SerializeField] private ETileObjectType m_Type;
+
     private TileCoordinates m_Coordinates;
     private CommandStack m_CommandStack = new CommandStack();
     protected bool m_HasAlreadyAddedCommand = false;
@@ -19,6 +20,16 @@ public class TileObject : MonoBehaviour
     public void Awake()
     {
         this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectsEvent));
+    }
+
+    public void OnEnable()
+    {
+        this.ToggleListener("Game", true);
+    }
+
+    public void OnDisable()
+    {
+        this.ToggleListener("Game", false);
     }
 
     public void OnDestroy()
