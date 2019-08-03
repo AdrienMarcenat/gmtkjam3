@@ -36,7 +36,7 @@ public class TileManager
     public void UpdateTileObjects()
     {
         m_TileObjects.Clear();
-        new UpdateTileObjectEvent().Push();
+        new UpdateTileObjectsEvent().Push();
     }
 
     public TileObject GetObjectInTile(TileCoordinates coordinates)

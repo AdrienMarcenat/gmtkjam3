@@ -20,12 +20,36 @@ public enum EDirection
 public class Tile : MonoBehaviour
 {
     [SerializeField] private ETileType m_Type;
-    [SerializeField] private TileObject m_Object;
     private TileCoordinates m_Coordinates;
+    private CommandStack m_CommandStack = new CommandStack();
 
-    public bool IsEmpty ()
+    private int m_X;
+    private int m_Y;
+
+    public void Awake()
     {
-        return m_Object == null || !IsObstacle ();
+        m_X = (int)transform.position.x;
+        m_Y = (int)transform.position.y;
+        SetCoordinates(new TileCoordinates(m_X, m_Y));
+        TileManagerProxy.Get().AddTile(this);
+        this.RegisterAsListener("Game", typeof(UndoTileEvent), typeof(EvaluateRuleEvent));
+    }
+
+    public void OnDestroy()
+    {
+        this.UnregisterAsListener("Game");
+    }
+
+    public void OnGameEvent(UndoTileEvent undoEvent)
+    {
+        m_CommandStack.Undo();
+    }
+
+    public void OnGameEvent(EvaluateRuleEvent evaluateRuleEvent)
+    {
+        RuleCommand command = new RuleCommand(gameObject);
+        command.Execute();
+        PushCommand(command);
     }
 
     public virtual bool IsObstacle() { return false; }
@@ -52,20 +76,21 @@ public class Tile : MonoBehaviour
 
     public TileObject GetTileObject()
     {
-        return m_Object;
+        return TileManagerProxy.Get().GetObjectInTile(GetCoordinates());
     }
 
-    public void SetTileObject (TileObject tileObject)
+    public virtual void EvaluateRule()
     {
-        m_Object = tileObject;
-        if (m_Object != null)
-        {
-            m_Object.SetCoordinates (m_Coordinates);
-        }
     }
 
-    public virtual void Evaluate()
-    { }
+    public virtual void UndoRule()
+    {
+    }
+
+    private void PushCommand(Command command)
+    {
+        m_CommandStack.PushCommand(command);
+    }
 
     private static Dictionary<EDirection, TileCoordinates> ms_NeighboorTiles = new Dictionary<EDirection, TileCoordinates>()
     {

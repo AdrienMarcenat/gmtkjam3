@@ -38,3 +38,21 @@ public class MoveCommand : Command
     private int m_XDir;
     private int m_YDir;
 }
+public class RuleCommand : Command
+{
+    public RuleCommand(GameObject actor) : base(actor)
+    {
+    }
+
+    public override void Execute()
+    {
+        Tile tile = m_Actor.GetComponent<Tile>();
+        tile.EvaluateRule();
+    }
+
+    public override void Undo()
+    {
+        Tile tile = m_Actor.GetComponent<Tile>();
+        tile.UndoRule();
+    }
+}

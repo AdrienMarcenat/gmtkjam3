@@ -18,7 +18,7 @@ public class TileObject : MonoBehaviour
 
     public void Awake()
     {
-        this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectEvent));
+        this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectsEvent));
     }
 
     public void OnDestroy()
@@ -42,7 +42,7 @@ public class TileObject : MonoBehaviour
         m_HasAlreadyAddedCommand = false;
     }
 
-    public void OnGameEvent(UpdateTileObjectEvent updateTileObjectEvent)
+    public void OnGameEvent(UpdateTileObjectsEvent updateTileObjectsEvent)
     {
         TileManagerProxy.Get().AddTileObject(this);
     }

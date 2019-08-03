@@ -4,6 +4,7 @@
     Retry,
     Start,
     Quit,
+    Win,
 }
 
 public class GameFlowEvent : GameEvent
