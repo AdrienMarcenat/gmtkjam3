@@ -81,7 +81,6 @@ public static class Extension
 
     public static int Modulo(this int unit, int modulo)
     {
-        return unit;
         int res = unit % modulo;
         if (res < 0)
         {

@@ -44,6 +44,7 @@ public class MovingTileObject : TileObject
         StopMovement();
         SetTargetPos(xDir, yDir);
         transform.position = m_TargetPos;
+        SnapOnCurrentCoordinates();
     }
 
     private void SetTargetPos(int xDir, int yDir)
@@ -66,7 +67,15 @@ public class MovingTileObject : TileObject
             transform.position = Vector3.MoveTowards(transform.position, m_TargetPos, Time.deltaTime * m_MoveSpeed);
             yield return null;
         }
+        SnapOnCurrentCoordinates();
         SetIsMoving(false);
+    }
+
+    private void SnapOnCurrentCoordinates()
+    {
+        TileCoordinates currentCoordinates = GetCoordinates();
+        Vector3 currentPosition = new Vector3(currentCoordinates.x, currentCoordinates.y, 0);
+        transform.position = currentPosition;
     }
 
     private void StopMovement()
