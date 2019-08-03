@@ -4,10 +4,12 @@ using System.Collections.Generic;
 public class TileManager
 {
     private Dictionary<TileCoordinates, Tile> m_Tiles;
+    private Dictionary<TileCoordinates, TileObject> m_TileObjects;
 
     public TileManager ()
     {
-        m_Tiles = new Dictionary<TileCoordinates, Tile> ();
+        m_Tiles = new Dictionary<TileCoordinates, Tile>();
+        m_TileObjects = new Dictionary<TileCoordinates, TileObject> ();
     }
 
     public Tile GetTile (int x, int y)
@@ -24,22 +26,30 @@ public class TileManager
 
     public void AddTile (Tile tile)
     {
-        this.m_Tiles.Add (tile.GetCoordinates (), tile);
+        m_Tiles.Add (tile.GetCoordinates (), tile);
+    }
+    public void AddTileObject(TileObject tileObject)
+    {
+        m_TileObjects.Add(tileObject.GetCoordinates(), tileObject);
     }
 
-    public void SetTileObject(TileCoordinates coordinates, TileObject tileObject)
+    public void UpdateTileObjects()
     {
-        Tile tile = null;
-        m_Tiles.TryGetValue (coordinates, out tile);
-        if(tile != null)
-        {
-            tile.SetTileObject (tileObject);
-        }
+        m_TileObjects.Clear();
+        new UpdateTileObjectEvent().Push();
+    }
+
+    public TileObject GetObjectInTile(TileCoordinates coordinates)
+    {
+        TileObject tileObject = null;
+        m_TileObjects.TryGetValue(coordinates, out tileObject);
+        return tileObject;
     }
 
     public void Reset ()
     {
         m_Tiles.Clear ();
+        m_TileObjects.Clear();
     }
 }
 

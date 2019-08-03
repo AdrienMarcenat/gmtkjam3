@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     private EDirection m_FacingDirection = EDirection.Right;
     private bool m_IsUndoing = false;
     private float m_TimeHoldingUndo = 0f;
-    private Player m_PlayerTileObject;
+    private MovingTileObject m_MovingTileObject;
 
     void Awake ()
     {
-        m_PlayerTileObject = GetComponent<Player>();
+        m_MovingTileObject = GetComponent<MovingTileObject>();
         this.RegisterAsListener ("Player", typeof(PlayerInputGameEvent));
     }
 
@@ -36,16 +36,16 @@ public class PlayerController : MonoBehaviour
             switch (input)
             {
                 case "Right":
-                    m_PlayerTileObject.AddMoveCommand(1, 0);
+                    TryMove(1, 0);
                     break;
                 case "Left":
-                    m_PlayerTileObject.AddMoveCommand(-1, 0);
+                    TryMove(-1, 0);
                     break;
                 case "Up":
-                    m_PlayerTileObject.AddMoveCommand(0, 1);
+                    TryMove(0, 1);
                     break;
                 case "Down":
-                    m_PlayerTileObject.AddMoveCommand(0, -1);
+                    TryMove(0, -1);
                     break;
                 case "Undo":
                     m_TimeHoldingUndo += Time.deltaTime;
@@ -69,7 +69,22 @@ public class PlayerController : MonoBehaviour
         m_IsUndoing = true;
         int undoRate = rapidUndo ? m_RapidUndoPerSecond : m_UndoPerSecond;
         yield return new WaitForSeconds (1f / undoRate);
-        CommandStackProxy.Get ().Undo ();
+        // Becauses we evalaute rules after moving tileobject we must do the reverse here
+        new UndoTileEvent().Push();
+        TileManagerProxy.Get().UpdateTileObjects();
+        new UndoTileObjectEvent().Push();
+        TileManagerProxy.Get().UpdateTileObjects();
         m_IsUndoing = false;
+    }
+
+    public void TryMove(int xDir, int yDir)
+    {
+        if (m_MovingTileObject.TryMove(xDir, yDir))
+        {
+            new MoveEvent().Push();
+            TileManagerProxy.Get().UpdateTileObjects();
+            new EvaluateRuleEvent().Push();
+            TileManagerProxy.Get().UpdateTileObjects();
+        }
     }
 }

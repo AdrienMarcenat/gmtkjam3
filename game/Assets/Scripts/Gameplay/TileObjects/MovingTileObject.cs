@@ -8,14 +8,29 @@ public class MovingTileObject : TileObject
     private bool m_IsMoving = false;
     private Vector3 m_TargetPos;
 
-    public void AddMoveCommand(int xDir, int yDir)
+    public bool TryMove(int xDir, int yDir)
     {
-        if (CanMoveTo(xDir, yDir))
+        if (EvaluateMoveTo(xDir, yDir))
         {
-            MoveCommand command = new MoveCommand(gameObject, xDir, yDir);
-            command.Execute();
-            CommandStackProxy.Get().PushCommand(command);
+            AddMoveCommand(xDir, yDir);
+            return true;
         }
+        return false;
+    }
+
+    public override void AddMoveCommand(int xDir, int yDir)
+    {
+        MoveCommand command = new MoveCommand(gameObject, xDir, yDir);
+        TileCoordinates targetCoordinate = GetCoordinates() + new TileCoordinates(xDir, yDir);
+        TileObject objectInTargetTile = TileManagerProxy.Get().GetObjectInTile(targetCoordinate);
+        if (objectInTargetTile != null)
+        {
+            // Propagate the move (push objects)
+            objectInTargetTile.AddMoveCommand(xDir, yDir);
+        }
+        command.Execute();
+        PushCommand(command);
+        m_HasAlreadyAddedCommand = true;
     }
 
     public void Move(int xDir, int yDir)
@@ -33,6 +48,8 @@ public class MovingTileObject : TileObject
 
     private void SetTargetPos(int xDir, int yDir)
     {
+        TileCoordinates targetCoordinate = GetCoordinates() + new TileCoordinates(xDir, yDir);
+        SetCoordinates(targetCoordinate);
         m_TargetPos = new Vector3(transform.position.x + xDir.ToWorldUnit(), transform.position.y + yDir.ToWorldUnit(), transform.position.z);
     }
 
@@ -62,9 +79,20 @@ public class MovingTileObject : TileObject
         }
     }
 
-    private bool CanMoveTo(int xDir, int yDir)
+    public override bool EvaluateMoveTo(int xDir, int yDir)
     {
         if (m_IsMoving)
+        {
+            return false;
+        }
+        TileCoordinates targetCoordinate = GetCoordinates() + new TileCoordinates(xDir, yDir);
+        Tile targetTile = TileManagerProxy.Get().GetTile(targetCoordinate);
+        if(targetTile != null && targetTile.IsObstacle())
+        {
+            return false;
+        }
+        TileObject objectInTargetTile = TileManagerProxy.Get().GetObjectInTile(targetCoordinate);
+        if(objectInTargetTile != null && !objectInTargetTile.EvaluateMoveTo(xDir, yDir))
         {
             return false;
         }
