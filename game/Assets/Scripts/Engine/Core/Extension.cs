@@ -13,6 +13,11 @@ public static class Extension
         GameEventManagerProxy.Get ().Unregister (objectToNotify, tag);
     }
 
+    public static void ToggleListener(this System.Object objectToToggle, string tag, bool toggle)
+    {
+        GameEventManagerProxy.Get().ToggleListener(objectToToggle, tag, toggle);
+    }
+
     public static void RegisterToUpdate (this System.Object objectToNotify, bool isPausable, params EUpdatePass[] updatePassList)
     {
         UpdaterProxy.Get ().Register (objectToNotify, isPausable, updatePassList);
@@ -72,5 +77,19 @@ public static class Extension
         T[] result = new T[length];
         Array.Copy(data, index, result, 0, length);
         return result;
+    }
+
+    public static int Modulo(this int unit, int modulo)
+    {
+        return unit;
+        int res = unit % modulo;
+        if (res < 0)
+        {
+            return res + modulo;
+        }
+        else
+        {
+            return res;
+        }
     }
 }

@@ -44,6 +44,18 @@ public class GameEventManager : IGameEventManager
         notifier.RemoveListener(objectToNotify, tag);
     }
 
+    public void ToggleListener(System.Object objectToToggle, string tag, bool toggle)
+    {
+        ListenerNotifier notifier = null;
+
+        if (!m_Notifiers.TryGetValue(tag, out notifier))
+        {
+            Assert.IsTrue(false, "Trying to toggle listener from tag " + tag + " but no notifier was found.");
+        }
+
+        notifier.ToggleListener(objectToToggle, tag, toggle);
+    }
+
     public void PushGameEvent(GameEvent e, GameEvent.EProtocol protocol)
     {
         switch (protocol)

@@ -17,7 +17,7 @@ public class ListenerNotifier
         Assert.IsTrue (e.GetTag () == m_Tag, "GameEvent has tag " + e.GetTag () + " but notifier has tag " + m_Tag);
         foreach (Listener listener in m_Listeners)
         {
-            if (listener.IsGameEventHandled (e))
+            if (listener.IsListening() && listener.IsGameEventHandled (e))
             {
                 ReflectionHelper.CallMethod ("OnGameEvent", listener.GetObjectToNotify(), e);
             }
@@ -38,5 +38,16 @@ public class ListenerNotifier
             }
         );
         m_Listeners.RemoveAt (indexToRemove);
+    }
+
+    public void ToggleListener(System.Object objectToToggle, string tag, bool toggle)
+    {
+        int indexToToggle = m_Listeners.FindIndex(
+            delegate (Listener listener)
+            {
+                return listener.GetTag() == tag && listener.GetObjectToNotify() == objectToToggle;
+            }
+        );
+        m_Listeners[indexToToggle].ToggleListener(toggle);
     }
 }

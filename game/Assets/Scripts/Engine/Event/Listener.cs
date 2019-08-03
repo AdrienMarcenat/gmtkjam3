@@ -5,6 +5,7 @@ public class Listener
     private System.Object m_ObjectToNotify;
     private string m_Tag;
     private System.Type[] m_GameEventTypes;
+    private bool m_IsListening = true;
 
     public Listener (System.Object objectToNotify, string tag, params System.Type[] GameEventTypes)
     {
@@ -34,5 +35,15 @@ public class Listener
             }
         }
         return false;
+    }
+
+    public void ToggleListener(bool toggle)
+    {
+        m_IsListening = toggle;
+    }
+
+    public bool IsListening()
+    {
+        return m_IsListening;
     }
 }
