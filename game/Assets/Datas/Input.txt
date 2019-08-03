@@ -1,4 +1,4 @@
 Pause:Escape
-Jump:Space
+Undo:U
 Right:RightArrow
 Left:LeftArrow

@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(MovingObject))]
 public class PlayerController : MonoBehaviour
 {
-    private MovingObject m_Mover;
-    private bool m_ProcessInput = true;
-    private Vector3 m_FacingDirection;
+    [SerializeField] private int m_UndoPerSecond = 10;
+    [SerializeField] private float m_HeldUndoTreshold = 2f;
 
-    private static Vector3 ms_Right = new Vector3 (1, 0, 0);
-    private static Vector3 ms_Left = new Vector3 (-1, 0, 0);
+    private EDirection m_FacingDirection = EDirection.Right;
+    private bool m_IsUndoing = false;
+    private float m_TimeHoldingUndo = 0f;
+    private Player m_PlayerTileObject;
 
     void Awake ()
     {
-        m_Mover = GetComponent<MovingObject> ();
-        m_FacingDirection = new Vector3 (1, 0, 0);
+        m_PlayerTileObject = GetComponent<Player>();
         this.RegisterAsListener ("Player", typeof(PlayerInputGameEvent));
     }
 
@@ -24,38 +25,50 @@ public class PlayerController : MonoBehaviour
 
     public void OnGameEvent(PlayerInputGameEvent inputEvent)
     {
-        if (UpdaterProxy.Get().IsPaused() || !m_ProcessInput)
+        if (UpdaterProxy.Get().IsPaused())
         {
             return;
         }
-        string input = inputEvent.GetInput ();
-        EInputState state = inputEvent.GetInputState ();
-        switch (input)
+        string input = inputEvent.GetInput();
+        EInputState state = inputEvent.GetInputState();
+        if (state == EInputState.Held || state == EInputState.Down)
         {
-            case "Undo":
-                if (state == EInputState.Down)
-                {
-                    Undo ();
-                }
-                break;
-            case "Right":
-                Move (state == EInputState.Held ? 1 : 0);
-                m_FacingDirection = ms_Right;
-                break;
-            case "Left":
-                Move (state == EInputState.Held ? -1 : 0);
-                m_FacingDirection = ms_Left;
-                break;
-            default:
-                break;
+            switch (input)
+            {
+                case "Right":
+                    m_PlayerTileObject.AddMoveCommand(1, 0);
+                    break;
+                case "Left":
+                    m_PlayerTileObject.AddMoveCommand(-1, 0);
+                    break;
+                case "Up":
+                    m_PlayerTileObject.AddMoveCommand(0, 1);
+                    break;
+                case "Down":
+                    m_PlayerTileObject.AddMoveCommand(0, -1);
+                    break;
+                case "Undo":
+                    m_TimeHoldingUndo += Time.deltaTime;
+                    if (!m_IsUndoing && (m_TimeHoldingUndo > m_HeldUndoTreshold || state == EInputState.Down))
+                    {
+                        StartCoroutine(Undo());
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (state == EInputState.Up && input == "Undo")
+            {
+                m_TimeHoldingUndo = 0f;
+            }
         }
     }
 
-    private void Undo()
+    IEnumerator Undo ()
     {
-    }
-
-    private void Move (float xDir)
-    {
+        m_IsUndoing = true;
+        yield return new WaitForSeconds (1f / m_UndoPerSecond);
+        CommandStackProxy.Get ().Undo ();
+        m_IsUndoing = false;
     }
 }

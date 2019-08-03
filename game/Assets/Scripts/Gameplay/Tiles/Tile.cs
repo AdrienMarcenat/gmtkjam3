@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum ETileType
 {
     Invalid,
     None,
-    Normal,
+    Goal,
+    Wall,
+}
+
+public enum EDirection
+{
+    Right,
+    Up,
+    Left,
+    Down
 }
 
 public class Tile : MonoBehaviour
@@ -15,8 +25,10 @@ public class Tile : MonoBehaviour
 
     public bool IsEmpty ()
     {
-        return m_Object == null || !m_Object.IsObstacle ();
+        return m_Object == null || !IsObstacle ();
     }
+
+    public virtual bool IsObstacle() { return false; }
 
     public TileCoordinates GetCoordinates ()
     {
@@ -51,4 +63,15 @@ public class Tile : MonoBehaviour
             m_Object.SetCoordinates (m_Coordinates);
         }
     }
+
+    public virtual void Evaluate()
+    { }
+
+    private static Dictionary<EDirection, TileCoordinates> ms_NeighboorTiles = new Dictionary<EDirection, TileCoordinates>()
+    {
+        { EDirection.Right, new TileCoordinates(1, 0) },
+        { EDirection.Left,  new TileCoordinates(-1, 0) },
+        { EDirection.Up,    new TileCoordinates(0, 1) },
+        { EDirection.Down,  new TileCoordinates(0, -1) },
+    };
 }

@@ -39,9 +39,4 @@ public class TileObject : MonoBehaviour
     {
         m_Coordinates = coordinates;
     }
-
-    public virtual bool IsObstacle ()
-    {
-        return false;
-    }
 }
