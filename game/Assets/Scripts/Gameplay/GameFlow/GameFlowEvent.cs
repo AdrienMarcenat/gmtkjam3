@@ -3,8 +3,12 @@
     Resume,
     Retry,
     Start,
+    NextLevel,
+    LevelSelection,
+    Menu,
+    EndLevel,
+    EndLevelPanel,
     Quit,
-    Win,
 }
 
 public class GameFlowEvent : GameEvent

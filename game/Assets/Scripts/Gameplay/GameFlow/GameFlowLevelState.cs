@@ -1,8 +1,10 @@
 ﻿
-public class GameFlowNormalState : HSMState
+public class GameFlowLevelState : HSMState
 {
     public override void OnEnter ()
     {
+        LevelManagerProxy.Get ().LoadLevel();
+        this.RegisterAsListener ("Player", typeof (PlayerInputGameEvent));
         this.RegisterAsListener ("Game", typeof (GameFlowEvent));
     }
 
@@ -13,13 +15,20 @@ public class GameFlowNormalState : HSMState
             ChangeNextTransition (HSMTransition.EType.Child, typeof (GameFlowPauseState));
         }
     }
+
     public void OnGameEvent (GameFlowEvent flowEvent)
     {
+        switch (flowEvent.GetAction ())
+        {
+            case EGameFlowAction.EndLevel:
+                ChangeNextTransition (HSMTransition.EType.Clear, typeof (GameFlowEndLevelState));
+                break;
+        }
     }
 
     public override void OnExit ()
     {
-        this.UnregisterAsListener ("Player");
         this.UnregisterAsListener ("Game");
+        this.UnregisterAsListener ("Player");
     }
 }

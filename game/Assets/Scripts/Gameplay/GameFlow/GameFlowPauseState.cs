@@ -17,45 +17,53 @@ public class PauseEvent : GameEvent
 
 public class GameFlowPauseState : HSMState
 {
-    public override void OnEnter ()
+    public override void OnEnter()
     {
-        UpdaterProxy.Get ().SetPause (true);
-        Time.timeScale = 0;
-        this.RegisterAsListener ("Game", typeof (GameFlowEvent));
-        this.RegisterAsListener ("Player", typeof (PlayerInputGameEvent));
-        new PauseEvent (true).Push ();
+        UpdaterProxy.Get().SetPause(true);
+        this.RegisterAsListener("Game", typeof(GameFlowEvent));
+        this.RegisterAsListener("Player", typeof(PlayerInputGameEvent));
+        new PauseEvent(true).Push();
     }
 
-    public void OnGameEvent (GameFlowEvent flowEvent)
+    public void OnGameEvent(GameFlowEvent flowEvent)
     {
-        switch (flowEvent.GetAction ())
+        switch (flowEvent.GetAction())
         {
-            case EGameFlowAction.Quit:
-                ChangeNextTransition (HSMTransition.EType.Clear, typeof (GameFlowMenuState));
+            case EGameFlowAction.Menu:
+                ChangeNextTransition(HSMTransition.EType.Clear, typeof(GameFlowMenuState));
+                break;
+            case EGameFlowAction.LevelSelection:
+                ChangeNextTransition(HSMTransition.EType.Clear, typeof(GameFlowLevelSelectionState));
+                break;
+            case EGameFlowAction.NextLevel:
+                if (!LevelManagerProxy.Get().IsLastLevel())
+                {
+                    LevelManagerProxy.Get().NextLevel();
+                    ChangeNextTransition(HSMTransition.EType.Clear, typeof(GameFlowLevelState));
+                }
                 break;
             case EGameFlowAction.Retry:
-                ChangeNextTransition (HSMTransition.EType.Clear, typeof (GameFlowNormalState));
+                ChangeNextTransition(HSMTransition.EType.Clear, typeof(GameFlowLevelState));
                 break;
             case EGameFlowAction.Resume:
-                ChangeNextTransition (HSMTransition.EType.Exit);
+                ChangeNextTransition(HSMTransition.EType.Exit);
                 break;
         }
     }
 
-    public void OnGameEvent (PlayerInputGameEvent inputEvent)
+    public void OnGameEvent(PlayerInputGameEvent inputEvent)
     {
-        if (inputEvent.GetInput () == "Pause" && inputEvent.GetInputState () == EInputState.Down)
+        if (inputEvent.GetInput() == "Pause" && inputEvent.GetInputState() == EInputState.Down)
         {
-            ChangeNextTransition (HSMTransition.EType.Exit);
+            ChangeNextTransition(HSMTransition.EType.Exit);
         }
     }
 
-    public override void OnExit ()
+    public override void OnExit()
     {
-        new PauseEvent (false).Push ();
-        this.UnregisterAsListener ("Player");
-        this.UnregisterAsListener ("Game");
-        Time.timeScale = 1;
-        UpdaterProxy.Get ().SetPause (false);
+        new PauseEvent(false).Push();
+        this.UnregisterAsListener("Player");
+        this.UnregisterAsListener("Game");
+        UpdaterProxy.Get().SetPause(false);
     }
 }

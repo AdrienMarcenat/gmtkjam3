@@ -1,20 +1,21 @@
 ﻿public class GameFlowMenuState : HSMState
 {
-    public override void OnEnter ()
+    public override void OnEnter()
     {
-        this.RegisterAsListener ("Game", typeof (GameFlowEvent));
+        LevelManagerProxy.Get().LoadScene("Scenes/MainMenu");
+        this.RegisterAsListener("Game", typeof(GameFlowEvent));
     }
 
-    public void OnGameEvent (GameFlowEvent flowEvent)
+    public void OnGameEvent(GameFlowEvent flowEvent)
     {
-        if (flowEvent.GetAction () == EGameFlowAction.Start)
+        if (flowEvent.GetAction() == EGameFlowAction.Start)
         {
-            ChangeNextTransition (HSMTransition.EType.Clear, typeof (GameFlowNormalState));
+            ChangeNextTransition(HSMTransition.EType.Clear, typeof(GameFlowLevelSelectionState));
         }
     }
 
-    public override void OnExit ()
+    public override void OnExit()
     {
-        this.UnregisterAsListener ("Game");
+        this.UnregisterAsListener("Game");
     }
 }

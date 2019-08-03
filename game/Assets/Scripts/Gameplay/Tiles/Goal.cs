@@ -9,7 +9,7 @@ public class Goal : Tile
 
     public override void DoRule()
     {
-        new GameFlowEvent(EGameFlowAction.Win).Push();
+        new GameFlowEvent(EGameFlowAction.EndLevel).Push();
         this.DebugLog("Win");
     }
 }
