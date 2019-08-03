@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4001018314832647908}
   - component: {fileID: 4001018314832647911}
   - component: {fileID: 4001018314832647910}
+  - component: {fileID: 770874103458731869}
   m_Layer: 0
   m_Name: TileObject_Player
   m_TagString: Untagged
@@ -110,3 +111,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Type: 1
   m_MoveSpeed: 10
+--- !u!95 &770874103458731869
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4001018314832647913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc879bc2ae062304e91eba011b7b195d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
