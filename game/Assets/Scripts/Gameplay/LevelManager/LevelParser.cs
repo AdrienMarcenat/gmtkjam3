@@ -16,10 +16,10 @@ public static class LevelParser
         int middleY = levelSize / 2;
 
         // First line is north wall description
-        GenerateTiles(lines[0], middleY + 1);
+        GenerateTiles(lines[0], middleY + 1, false);
 
         // Second line is tile description
-        GenerateTiles(lines[1], middleY);
+        GenerateTiles(lines[1], middleY, false);
 
         // Third line is tileObject description
         string[] lineOfTileObject = lines[2].Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -43,13 +43,13 @@ public static class LevelParser
         }
 
         // Second line is south wall description
-        GenerateTiles(lines[3], middleY - 1);
+        GenerateTiles(lines[3], middleY - 1, true);
 
         // We want a square world
         return levelSize;
     }
 
-    private static void GenerateTiles(string tileDescription, int y)
+    private static void GenerateTiles(string tileDescription, int y, bool flipY)
     {
         string[] lineOfTile = tileDescription.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
         int x = 0;
@@ -62,6 +62,10 @@ public static class LevelParser
             tileGameObject.transform.position = new Vector3(x.ToWorldUnit(), y.ToWorldUnit(), 0);
             Tile tile = tileGameObject.GetComponent<Tile>();
             tile.Init(tileType, x, y, words.SubArray(1, -1));
+            if (flipY)
+            {
+                tileGameObject.GetComponent<SpriteRenderer>().flipY = true;
+            }
 
             x++;
         }

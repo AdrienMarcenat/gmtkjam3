@@ -2,6 +2,9 @@
 
 public class Camera2D : MonoBehaviour
 {
+    private int m_ScreenHeight = 144;
+    private int m_PixelPerUnit = 48;
+
     public void Awake()
     {
         this.RegisterAsListener("Game", typeof(LevelEvent), typeof(GameFlowEvent));
@@ -37,7 +40,9 @@ public class Camera2D : MonoBehaviour
         int levelDimension = LevelManagerProxy.Get().GetLevelDimension();
         float evenCorrection = levelDimension % 2 == 0 ? -0.5f : 0f;
         transform.position = new Vector3(evenCorrection + levelDimension.ToWorldUnit() / 2, levelDimension.ToWorldUnit() / 2, transform.position.z);
-        Screen.SetResolution(48 * levelDimension, 3*48, false);
+        Screen.SetResolution(m_PixelPerUnit * levelDimension, m_ScreenHeight, false);
+        float desiredHalfHeight = 0.5f * (1f / m_PixelPerUnit) * m_ScreenHeight;
+        GetComponent<Camera>().orthographicSize = desiredHalfHeight;
     }
 
     private void Reset()
