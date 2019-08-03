@@ -12,6 +12,7 @@ public static class LevelParser
         string[] lines = File.ReadAllLines (filename);
         string[] firstLineWords = lines[0].Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
         int levelSize = firstLineWords.Length;
+        TileCoordinates.ms_Modulo = levelSize;
         int middleY = levelSize / 2;
 
         // First line is north wall description

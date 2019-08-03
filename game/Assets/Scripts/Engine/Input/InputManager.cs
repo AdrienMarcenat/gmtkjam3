@@ -13,7 +13,7 @@ public enum EInputState
 public class InputManager : IInputManager
 {
     private Dictionary<string, KeyCode> m_KeyCodes = new Dictionary<string, KeyCode>();
-    private const string m_InputFileName = "Datas/Input.txt";
+    private const string m_InputFileName = "/Input.txt";
 
     public void OnEngineStart ()
     {
@@ -65,9 +65,7 @@ public class InputManager : IInputManager
     private void FillKeyCodes (string filename)
     {
         char[] separators = { ':' };
-#if UNITY_EDITOR
-        filename = "Assets/" + filename;
-#endif
+        filename = Application.streamingAssetsPath + filename;
 
         string[] lines = File.ReadAllLines (filename);
 
