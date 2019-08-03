@@ -8,6 +8,6 @@ public class Emitter : TeleporterBase
 
     public override void UndoRule()
     {
-        m_OtherEnd.Teleport();
+        GetOtherEnd().Teleport();
     }
 }

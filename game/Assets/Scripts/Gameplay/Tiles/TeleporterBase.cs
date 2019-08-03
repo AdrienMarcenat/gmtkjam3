@@ -2,14 +2,25 @@
 
 public class TeleporterBase : Tile
 {
-    [SerializeField] protected TeleporterBase m_OtherEnd;
+    private TeleporterBase m_OtherEnd;
+    private TileCoordinates m_OtherEndCoordinate;
+
+    public override void Init(ETileType type, int x, int y, string[] args)
+    {
+        base.Init(type, x, y, args);
+        if (args.Length > 0)
+        {
+            int otherEndX = int.Parse(args[0]);
+            m_OtherEndCoordinate = new TileCoordinates(otherEndX, y);
+        }
+    }
 
     public override bool EvaluateRule()
     {
         TileObject tileObject = GetTileObject();
         if (tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube)
         {
-            return m_OtherEnd.CanReceive();
+            return GetOtherEnd().CanReceive();
         }
         return false;
     }
@@ -19,21 +30,27 @@ public class TeleporterBase : Tile
         return GetTileObject() == null;
     }
 
-    public void SetOtherEnd(TeleporterBase teleporter)
+    protected TeleporterBase GetOtherEnd()
     {
-        m_OtherEnd = teleporter;
+        if (m_OtherEnd == null)
+        {
+            Tile otherEnd = TileManagerProxy.Get().GetTile(m_OtherEndCoordinate);
+            m_OtherEnd = (TeleporterBase)otherEnd;
+        }
+        return m_OtherEnd;
     }
 
     public void Teleport()
     {
         TileObject tileObject = GetTileObject();
+        TeleporterBase otherEnd = GetOtherEnd();
         if (tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube)
         {
-            if (m_OtherEnd.CanReceive())
+            if (otherEnd.CanReceive())
             {
-                TileCoordinates receiverCoordinates = m_OtherEnd.GetCoordinates();
+                TileCoordinates receiverCoordinates = otherEnd.GetCoordinates();
                 tileObject.OnTeleport();
-                tileObject.transform.position = m_OtherEnd.transform.position;
+                tileObject.transform.position = otherEnd.transform.position;
                 tileObject.SetCoordinates(receiverCoordinates);
             }
         }
