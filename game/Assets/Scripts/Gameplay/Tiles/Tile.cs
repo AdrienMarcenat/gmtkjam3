@@ -113,7 +113,7 @@ public class Tile : MonoBehaviour
         m_CommandStack.PushCommand(command);
     }
 
-    private static Dictionary<EDirection, TileCoordinates> ms_NeighboorTiles = new Dictionary<EDirection, TileCoordinates>()
+    public static Dictionary<EDirection, TileCoordinates> ms_DirectionTileVector = new Dictionary<EDirection, TileCoordinates>()
     {
         { EDirection.Right, new TileCoordinates(1, 0) },
         { EDirection.Left,  new TileCoordinates(-1, 0) },

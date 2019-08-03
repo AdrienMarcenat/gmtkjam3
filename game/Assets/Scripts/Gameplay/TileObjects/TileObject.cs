@@ -13,12 +13,18 @@ public class TileObject : MonoBehaviour
 {
     [SerializeField] private ETileObjectType m_Type;
 
+    private int m_X;
+    private int m_Y;
     private TileCoordinates m_Coordinates;
     private CommandStack m_CommandStack = new CommandStack();
+
     protected bool m_HasAlreadyAddedCommand = false;
 
     public void Awake()
     {
+        m_X = (int)transform.position.x;
+        m_Y = (int)transform.position.y;
+        Init(m_Type, m_X, m_Y, null);
         this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectsEvent));
     }
 
