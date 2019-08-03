@@ -4,11 +4,12 @@ using UnityEngine;
 public enum ETileType
 {
     Invalid,
-    None,
+    Normal,
     Goal,
     Wall,
     Emitter,
     Receiver,
+    CubeDestroyer,
 }
 
 public enum EDirection
@@ -26,15 +27,16 @@ public class Tile : MonoBehaviour
     private CommandStack m_CommandStack = new CommandStack();
     private bool m_ShoudlDoRule = false;
 
-    private int m_X;
-    private int m_Y;
+    public virtual void Init(ETileType type, int x, int y, string[] args)
+    {
+        m_Type = type;
+        m_CommandStack = new CommandStack();
+        m_Coordinates = new TileCoordinates(x, y);
+        TileManagerProxy.Get().AddTile(this);
+    }
 
     public void Awake()
     {
-        m_X = (int)transform.position.x;
-        m_Y = (int)transform.position.y;
-        SetCoordinates(new TileCoordinates(m_X, m_Y));
-        TileManagerProxy.Get().AddTile(this);
         this.RegisterAsListener("Game", typeof(UndoTileEvent), typeof(EvaluateRuleEvent), typeof(DoRuleEvent));
     }
 

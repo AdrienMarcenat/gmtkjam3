@@ -86,9 +86,9 @@ public class LevelManager
         if (GetActiveSceneName () == "Level")
         {
             TileManagerProxy.Get ().Reset ();
-            CommandStackProxy.Get ().Reset ();
             string levelName = GetCurrentLevelName ();
             m_CurrentLevelDimension = LevelParser.GenLevel ("/" + levelName + ".txt");
+            TileCoordinates.ms_Modulo = m_CurrentLevelDimension.x;
             new LevelEvent (m_CurrentLevel, true).Push ();
         }
     }

@@ -5,26 +5,27 @@ public enum ETileObjectType
     None,
     Player,
     Cube,
-    Goal,
-    Wall,
 }
 
 public class TileObject : MonoBehaviour
 {
     [SerializeField] private ETileObjectType m_Type;
 
-    private int m_X;
-    private int m_Y;
     private TileCoordinates m_Coordinates;
     private CommandStack m_CommandStack = new CommandStack();
 
     protected bool m_HasAlreadyAddedCommand = false;
 
+    public virtual void Init(ETileObjectType type, int x, int y, string[] args)
+    {
+        m_Type = type;
+        m_CommandStack = new CommandStack();
+        m_Coordinates = new TileCoordinates(x, y);
+        TileManagerProxy.Get().AddTileObject(this);
+    }
+
     public void Awake()
     {
-        m_X = (int)transform.position.x;
-        m_Y = (int)transform.position.y;
-        Init(m_Type, m_X, m_Y, null);
         this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectsEvent));
     }
 
@@ -61,14 +62,6 @@ public class TileObject : MonoBehaviour
 
     public void OnGameEvent(UpdateTileObjectsEvent updateTileObjectsEvent)
     {
-        TileManagerProxy.Get().AddTileObject(this);
-    }
-
-    public virtual void Init(ETileObjectType type, int x, int y, string[] args)
-    {
-        m_Type = type;
-        m_CommandStack = new CommandStack();
-        m_Coordinates = new TileCoordinates(x, y);
         TileManagerProxy.Get().AddTileObject(this);
     }
 

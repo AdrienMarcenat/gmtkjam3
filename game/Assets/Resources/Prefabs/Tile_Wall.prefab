@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7962380219895667834}
   - component: {fileID: 7962380219895667835}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Tile_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3118e427c2f39f04abe008674c11d035, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.49056602, g: 0.18280526, b: 0.18280526, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -92,7 +92,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7bb8eb51d4dfb41b68eaa7b68cf84f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Type: 0
-  m_Object: {fileID: 0}
-  m_X: 0
-  m_Y: 2
+  m_Type: 3

@@ -10,8 +10,8 @@ public class World : MonoBehaviour
     private GameEventManager m_GameEventManager;
     private InputManager m_InputManager;
     private SoundManager m_SoundManager;
-    private CommandStack m_CommandStack;
     private TileManager m_TileManager;
+    private LevelManager m_LevelManager;
 
     private GameFlowHSM m_GameFlowHSM;
 
@@ -32,8 +32,9 @@ public class World : MonoBehaviour
             m_InputManager = new InputManager();
             m_GameFlowHSM = new GameFlowHSM();
             m_SoundManager = new SoundManager (m_EfxSource, m_MusicSource);
-            m_CommandStack = new CommandStack();
             m_TileManager = new TileManager();
+            m_LevelManager = new LevelManager();
+
             OpenProxies ();
             OnEngineStart();
         }
@@ -60,14 +61,14 @@ public class World : MonoBehaviour
         GameEventManagerProxy.Open(m_GameEventManager);
         InputManagerProxy.Open(m_InputManager);
         SoundManagerProxy.Open (m_SoundManager);
-        CommandStackProxy.Open(m_CommandStack);
         TileManagerProxy.Open(m_TileManager);
+        LevelManagerProxy.Open(m_LevelManager);
     }
 
     void CloseProxies()
     {
+        LevelManagerProxy.Close(m_LevelManager);
         TileManagerProxy.Close(m_TileManager);
-        CommandStackProxy.Close(m_CommandStack);
         SoundManagerProxy.Close (m_SoundManager);
         InputManagerProxy.Close(m_InputManager);
         GameEventManagerProxy.Close (m_GameEventManager);
