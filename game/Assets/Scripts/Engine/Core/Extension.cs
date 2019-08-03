@@ -51,16 +51,16 @@ public static class Extension
         LoggerProxy.Get().Warning("[" + caller.ToString() + "]" + message);
     }
 
-    public static int ms_PixelPerUnit = 48;
+    public static float ms_TileUnitRatio = 1;
 
     public static int ToWorldUnit(this int unit)
     {
-        return unit * ms_PixelPerUnit / 2;
+        return (int)(unit * ms_TileUnitRatio);
     }
 
     public static int ToTileUnit(this int unit)
     {
-        return (int)(unit * 2 / ms_PixelPerUnit);
+        return (int)(unit / ms_TileUnitRatio);
     }
 
     public static T[] SubArray<T>(this T[] data, int index, int length = -1)

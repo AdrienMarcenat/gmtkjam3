@@ -3,8 +3,6 @@
     Resume,
     Retry,
     Start,
-    EndDialogue,
-    StartDialogue,
     Quit,
 }
 

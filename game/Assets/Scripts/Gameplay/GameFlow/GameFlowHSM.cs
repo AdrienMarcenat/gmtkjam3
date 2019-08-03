@@ -4,7 +4,6 @@
         : base (new GameFlowMenuState ()
               , new GameFlowNormalState ()
               , new GameFlowPauseState ()
-              , new GameFlowGameOverState ()
         )
     {
     }

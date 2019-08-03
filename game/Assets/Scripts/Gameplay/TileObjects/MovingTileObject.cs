@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MovingTileObject : TileObject
 {
-    [SerializeField] private float m_MoveSpeed = 300f;
+    [SerializeField] private float m_MoveSpeed = 10f;
 
     private bool m_IsMoving = false;
     private Vector3 m_TargetPos;

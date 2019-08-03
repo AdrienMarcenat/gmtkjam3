@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(MovingObject))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int m_UndoPerSecond = 10;
+    [SerializeField] private int m_RapidUndoPerSecond = 20;
     [SerializeField] private float m_HeldUndoTreshold = 2f;
 
     private EDirection m_FacingDirection = EDirection.Right;
@@ -49,9 +49,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Undo":
                     m_TimeHoldingUndo += Time.deltaTime;
-                    if (!m_IsUndoing && (m_TimeHoldingUndo > m_HeldUndoTreshold || state == EInputState.Down))
+                    if (!m_IsUndoing)
                     {
-                        StartCoroutine(Undo());
+                        StartCoroutine(Undo(m_TimeHoldingUndo > m_HeldUndoTreshold));
                     }
                     break;
                 default:
@@ -64,10 +64,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator Undo ()
+    IEnumerator Undo (bool rapidUndo)
     {
         m_IsUndoing = true;
-        yield return new WaitForSeconds (1f / m_UndoPerSecond);
+        int undoRate = rapidUndo ? m_RapidUndoPerSecond : m_UndoPerSecond;
+        yield return new WaitForSeconds (1f / undoRate);
         CommandStackProxy.Get ().Undo ();
         m_IsUndoing = false;
     }

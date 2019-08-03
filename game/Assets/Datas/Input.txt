@@ -2,3 +2,5 @@ Pause:Escape
 Undo:U
 Right:RightArrow
 Left:LeftArrow
+Up:UpArrow
+Down:DownArrow
