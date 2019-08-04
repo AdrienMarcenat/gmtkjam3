@@ -16,10 +16,16 @@ public class Emitter : TeleporterBase
     public override void DoRule()
     {
         Teleport();
-        GameObject emitterAnimationPrefab = Instantiate(m_EmitterAnimationPrefab);
-        emitterAnimationPrefab.transform.position = transform.position;
-        GameObject receiverAnimationPrefab = Instantiate(m_ReceiverAnimationPrefab);
-        receiverAnimationPrefab.transform.position = GetOtherEnd().transform.position;
+        if (m_EmitterAnimationPrefab != null)
+        {
+            GameObject emitterAnimationPrefab = Instantiate(m_EmitterAnimationPrefab);
+            emitterAnimationPrefab.transform.position = transform.position;
+        }
+        if (m_ReceiverAnimationPrefab != null)
+        {
+            GameObject receiverAnimationPrefab = Instantiate(m_ReceiverAnimationPrefab);
+            receiverAnimationPrefab.transform.position = GetOtherEnd().transform.position;
+        }
         SoundManagerProxy.Get().PlayMultiple(m_TeleportSound);
     }
 

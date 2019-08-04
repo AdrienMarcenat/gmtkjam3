@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Type: 4
+  m_TeleportSound: {fileID: 8300000, guid: 61b17b4ffef7cc24fbcf80c574256985, type: 3}
 --- !u!95 &6958860963330114652
 Animator:
   serializedVersion: 3

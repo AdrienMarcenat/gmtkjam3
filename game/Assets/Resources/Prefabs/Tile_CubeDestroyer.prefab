@@ -93,3 +93,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Type: 0
+  m_DestroySound: {fileID: 8300000, guid: f72620e2086ab96439e024d8867dbb95, type: 3}
