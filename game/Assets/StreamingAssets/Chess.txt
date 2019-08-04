@@ -1,0 +1,4 @@
+﻿Wall   Wall Wall   Wall   Wall   Wall    Wall   Wall          Wall
+CubeDestroyer Goal Normal Normal Normal Normal  Normal CubeDestroyer Normal
+None   None Player Cube,0 Cube,0 Cube,1  Cube,0 None          None
+Wall   Wall Wall   Wall   Wall   Wall    Wall   Wall          Wall

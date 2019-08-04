@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8492465079438252550}
   - component: {fileID: 8724082403141372450}
   m_Layer: 0
-  m_Name: CubeDestroyer
+  m_Name: Tile_CubeDestroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3118e427c2f39f04abe008674c11d035, type: 3}
-  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6994bda2c1600a34ebcad4d44ce1ec3b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

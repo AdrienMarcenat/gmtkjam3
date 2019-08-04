@@ -1,9 +1,10 @@
 ﻿0:First steps
 1:Zap
-2:Inversion
-3:Stuck
-4:DeadLock
-5:One Way
-6:A simple door
-7:Twin tale
-8:LiveLock
+2:Chess
+3:Inversion
+4:Stuck
+5:DeadLock
+6:One Way
+7:A simple door
+8:Twin tale
+9:LiveLock
