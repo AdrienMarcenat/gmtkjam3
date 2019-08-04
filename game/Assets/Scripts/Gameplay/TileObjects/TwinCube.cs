@@ -17,6 +17,11 @@ public class TwinCube : Cube
         }
     }
 
+    public override void Link()
+    {
+        GetTwinCube();
+    }
+
     protected TwinCube GetTwinCube()
     {
         if (m_TwinCube == null)

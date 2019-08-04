@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ public static class LevelParser
         // Third line is tileObject description
         string[] lineOfTileObject = lines[2].Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
         int x = 0;
+        List<TileObject> tileObjects = new List<TileObject>();
         foreach (string tileInfo in lineOfTileObject)
         {
             string[] words = tileInfo.Split(',');
@@ -38,8 +40,12 @@ public static class LevelParser
             tileObjectGameObject.transform.position = new Vector3 (x.ToWorldUnit (), middleY.ToWorldUnit (), 0);
             TileObject tileObject = tileObjectGameObject.GetComponent<TileObject> ();
             tileObject.Init (tileObjectType, x, middleY, words.SubArray (1, -1));
-
+            tileObjects.Add(tileObject);
             x++;
+        }
+        foreach (TileObject tileObject in tileObjects)
+        {
+            tileObject.Link();
         }
 
         // Second line is south wall description

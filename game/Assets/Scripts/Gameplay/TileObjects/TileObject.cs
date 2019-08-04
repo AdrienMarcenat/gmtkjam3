@@ -26,6 +26,11 @@ public class TileObject : MonoBehaviour
         TileManagerProxy.Get().AddTileObject(this);
     }
 
+    public virtual void Link()
+    {
+
+    }
+
     public void Awake()
     {
         this.RegisterAsListener("Game", typeof(UndoTileObjectEvent), typeof(MoveEvent), typeof(UpdateTileObjectsEvent));
