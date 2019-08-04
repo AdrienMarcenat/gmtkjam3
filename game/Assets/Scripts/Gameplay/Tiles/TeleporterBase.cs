@@ -12,6 +12,7 @@ public class TeleporterBase : Tile
         {
             int otherEndX = int.Parse(args[0]);
             m_OtherEndCoordinate = new TileCoordinates(otherEndX, y);
+            GetComponent<SpriteRenderer>().sprite = RessourceManager.LoadSprite(args[1], 0);
         }
     }
 

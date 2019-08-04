@@ -1,4 +1,4 @@
-﻿Wall   Wall   Wall   Wall   Wall    Wall          Wall,basicemmetor  Wall   Wall   Wall          Wall    Wall,basicreceptor  Wall   
-Normal Goal   Normal Normal Normal  CubeDestroyer Emitter,11        Normal Normal CubeDestroyer	Normal 	Receiver,6 	        Normal 
-None   None   Player None   None    None          None              Cube   None   None			None   	None   	            None   
-Wall   Wall   Wall   Wall   Wall    Wall          Wall              Wall   Wall   Wall			Wall   	Wall   	            Wall   
+﻿Wall   Wall   Wall   Wall   Wall    Wall          Wall,basicemmetor               Wall   Wall   Wall            Wall    Wall,basicreceptor              Wall   
+Normal Goal   Normal Normal Normal  CubeDestroyer Emitter,11,floorbasicteleporter Normal Normal CubeDestroyer	Normal 	Receiver,6,floorbasicteleporter Normal 
+None   None   Player None   None    None          None                            Cube,1 None   None			None   	None   	                        None   
+Wall   Wall   Wall   Wall   Wall    Wall          Wall                            Wall   Wall   Wall			Wall   	Wall   	                        Wall   
