@@ -12,7 +12,7 @@ public class EndLevelPanel : MonoBehaviour
     {
         if(gameFlowEvent.GetAction() == EGameFlowAction.EndLevel)
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(!LevelManagerProxy.Get().IsLastLevel());
         }
     }
 
