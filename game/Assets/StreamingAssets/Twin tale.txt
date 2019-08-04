@@ -1,0 +1,4 @@
+﻿Wall   Wall Wall          Wall Wall,basicemmetor               Wall   Wall   Wall   Wall   Wall   Wall   Wall         Wall   Wall   Wall   Wall,basicreceptor              Wall    Wall   Wall   Wall  
+Normal Door Normal        Door Emitter,15,floorbasicteleporter Key,3  Normal Normal Normal Goal   Normal Normal       Normal Normal Normal Receiver,4,floorbasicteleporter Normal  Normal Normal Normal
+None   None TwinCube,1,11 None None                            None   None   Player None   None   None   TwinCube,1,2 None   None   None   None                            None    None   None   None  
+Wall   Wall Wall          Wall Wall                            Wall   Wall   Wall   Wall   Wall   Wall   Wall         Wall   Wall   Wall   Wall                            Wall    Wall   Wall   Wall  

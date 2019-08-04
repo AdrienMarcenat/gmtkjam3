@@ -1,5 +1,8 @@
 ﻿0:First steps
-1:Inversion
-2:DeadLock
-3:One Way
-4:A simple door
+1:Zap
+2:Inversion
+3:Stuck
+4:DeadLock
+5:One Way
+6:A simple door
+7:Twin tale
