@@ -22,6 +22,11 @@ public class CubeDestroyer : Tile
         GameObject flash = Instantiate(RessourceManager.LoadPrefab("Flash"));
         flash.transform.position = transform.position;
         SoundManagerProxy.Get().PlayMultiple(m_DestroySound);
+
+        if (tileObject.tag == "GoldCube")
+        {
+            new GoldCubeDestruction().Push();
+        }
     }
 
     public override void UndoRule()
@@ -30,5 +35,9 @@ public class CubeDestroyer : Tile
         cube.SetActive(true);
         TileObject tileObject = cube.GetComponent<TileObject>();
         TileManagerProxy.Get().AddTileObject(tileObject);
+        if (tileObject.tag == "GoldCube")
+        {
+            new GoldCubeCreation().Push();
+        }
     }
 }

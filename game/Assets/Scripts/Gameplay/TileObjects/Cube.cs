@@ -13,6 +13,7 @@ public class Cube : MovingTileObject
             {
                 gameObject.tag = "GoldCube";
                 GetComponent<SpriteRenderer>().color = Color.yellow;
+                new GoldCubeCreation().Push();
             }
         }
     }
