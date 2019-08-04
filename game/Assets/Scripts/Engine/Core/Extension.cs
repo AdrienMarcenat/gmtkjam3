@@ -56,7 +56,7 @@ public static class Extension
         LoggerProxy.Get().Warning("[" + caller.ToString() + "]" + message);
     }
 
-    public static float ms_TileUnitRatio = 1;
+    public static float ms_TileUnitRatio = 1f;
 
     public static int ToWorldUnit(this int unit)
     {
