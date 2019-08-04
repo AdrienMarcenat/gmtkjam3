@@ -29,7 +29,10 @@ public class PlayerController : MonoBehaviour
     }
     public void OnGameEvent(GameFlowEvent gameFlowEvent)
     {
-        GetComponent<Animator>().SetTrigger("Win");
+        if (gameFlowEvent.GetAction() == EGameFlowAction.EndLevel)
+        {
+            GetComponent<Animator>().SetTrigger("Win");
+        }
     }
 
     public void OnGameEvent(PlayerInputGameEvent inputEvent)

@@ -554,6 +554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4858012963324863138, guid: d1f05a84781d0c14d9ab27cd75867b65,
+        type: 3}
+      propertyPath: orthographic size
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4858012963324863139, guid: d1f05a84781d0c14d9ab27cd75867b65,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -608,11 +613,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4858012963324863138, guid: d1f05a84781d0c14d9ab27cd75867b65,
-        type: 3}
-      propertyPath: orthographic size
-      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1f05a84781d0c14d9ab27cd75867b65, type: 3}
