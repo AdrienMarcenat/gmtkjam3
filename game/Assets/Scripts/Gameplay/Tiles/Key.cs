@@ -5,6 +5,7 @@ public class Key : Tile
     private Door m_Door;
     private TileCoordinates m_DoorCoordinate;
     private bool m_HasOpen = false;
+    private Animator m_Animator;
 
     public override void Init(ETileType type, int x, int y, string[] args)
     {
@@ -14,6 +15,7 @@ public class Key : Tile
             int doorX = int.Parse(args[0]);
             m_DoorCoordinate = new TileCoordinates(doorX, y);
         }
+        m_Animator = GetComponent<Animator>();
     }
 
     protected Door GetDoor()
@@ -29,16 +31,20 @@ public class Key : Tile
     public override bool EvaluateRule()
     {
         TileObject tileObject = GetTileObject();
-        return tileObject != null && tileObject.GetObjectType() == ETileObjectType.Player;
+        return !m_HasOpen && tileObject != null && tileObject.GetObjectType() == ETileObjectType.Player;
     }
 
     public override void DoRule()
     {
         GetDoor().Open();
+        m_Animator.SetTrigger("Open");
+        m_HasOpen = true;
     }
 
     public override void UndoRule()
     {
+        m_HasOpen = false;
+        m_Animator.SetTrigger("Close");
         GetDoor().Close();
     }
 }

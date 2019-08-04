@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1573004452613105950}
   - component: {fileID: 8886835341867545946}
   m_Layer: 0
-  m_Name: Goal
+  m_Name: Tile_Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3118e427c2f39f04abe008674c11d035, type: 3}
-  m_Color: {r: 0.9037957, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a314f25a7f27b6143acee4f0240ff5e8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -93,4 +93,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Type: 2
-  m_Object: {fileID: 0}

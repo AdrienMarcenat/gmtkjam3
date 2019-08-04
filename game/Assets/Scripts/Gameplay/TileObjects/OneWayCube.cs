@@ -5,7 +5,7 @@ using UnityEngine;
 public class OneWayCube : Cube
 {
     private EDirection m_AllowedDirection;
-    private TileCoordinates m_AllowedTileVector;
+    private Vector2Int m_AllowedTileVector;
 
     public override void Init(ETileObjectType type, int x, int y, string[] args)
     {
@@ -23,7 +23,7 @@ public class OneWayCube : Cube
 
     public override bool EvaluateMoveTo(int xDir, int yDir)
     {
-        TileCoordinates tileVector = new TileCoordinates(xDir, yDir);
+        Vector2Int tileVector = new Vector2Int(xDir, yDir);
         return m_AllowedTileVector == tileVector && base.EvaluateMoveTo(xDir, yDir);
     }
 }

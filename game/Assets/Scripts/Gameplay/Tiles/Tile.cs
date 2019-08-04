@@ -117,11 +117,11 @@ public class Tile : MonoBehaviour
         m_CommandStack.PushCommand(command);
     }
 
-    public static Dictionary<EDirection, TileCoordinates> ms_DirectionTileVector = new Dictionary<EDirection, TileCoordinates>()
+    public static Dictionary<EDirection, Vector2Int> ms_DirectionTileVector = new Dictionary<EDirection, Vector2Int>()
     {
-        { EDirection.Right, new TileCoordinates(1, 0) },
-        { EDirection.Left,  new TileCoordinates(-1, 0) },
-        { EDirection.Up,    new TileCoordinates(0, 1) },
-        { EDirection.Down,  new TileCoordinates(0, -1) },
+        { EDirection.Right, new Vector2Int(1, 0) },
+        { EDirection.Left,  new Vector2Int(-1, 0) },
+        { EDirection.Up,    new Vector2Int(0, 1) },
+        { EDirection.Down,  new Vector2Int(0, -1) },
     };
 }
