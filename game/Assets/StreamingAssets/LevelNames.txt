@@ -5,6 +5,8 @@
 4:Stuck
 5:DeadLock
 6:One Way
-7:A simple door
-8:Twin tale
-9:LiveLock
+7:Don't rush
+8:A simple door
+9:Twin tale
+10:LiveLock
+11:Dispute

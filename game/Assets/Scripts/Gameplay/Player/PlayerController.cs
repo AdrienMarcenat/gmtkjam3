@@ -19,11 +19,17 @@ public class PlayerController : MonoBehaviour
         m_MovingTileObject = GetComponent<MovingTileObject>();
         m_Sprite = GetComponent<SpriteRenderer>();
         this.RegisterAsListener ("Player", typeof(PlayerInputGameEvent));
+        this.RegisterAsListener("Game", typeof(GameFlowEvent));
     }
 
     private void OnDestroy ()
     {
         this.UnregisterAsListener ("Player");
+        this.UnregisterAsListener("Game");
+    }
+    public void OnGameEvent(GameFlowEvent gameFlowEvent)
+    {
+        GetComponent<Animator>().SetTrigger("Win");
     }
 
     public void OnGameEvent(PlayerInputGameEvent inputEvent)

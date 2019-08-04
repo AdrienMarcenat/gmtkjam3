@@ -23,7 +23,7 @@ public class MovingTileObject : TileObject
         MoveCommand command = new MoveCommand(gameObject, xDir, yDir);
         TileCoordinates targetCoordinate = GetCoordinates() + new TileCoordinates(xDir, yDir);
         TileObject objectInTargetTile = TileManagerProxy.Get().GetObjectInTile(targetCoordinate);
-        if (objectInTargetTile != null)
+        if (objectInTargetTile != null && objectInTargetTile.GetObjectType() != ETileObjectType.Player)
         {
             // Propagate the move (push objects)
             objectInTargetTile.AddMoveCommand(xDir, yDir);
@@ -105,7 +105,7 @@ public class MovingTileObject : TileObject
             return false;
         }
         TileObject objectInTargetTile = TileManagerProxy.Get().GetObjectInTile(targetCoordinate);
-        if(objectInTargetTile != null && !objectInTargetTile.EvaluateMoveTo(xDir, yDir))
+        if(objectInTargetTile != null && objectInTargetTile.GetObjectType() != ETileObjectType.Player && !objectInTargetTile.EvaluateMoveTo(xDir, yDir))
         {
             return false;
         }

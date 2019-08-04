@@ -480,6 +480,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114760523557200534, guid: 8d6c5a64395cc7a45b8b0689bad9864c,
+        type: 3}
+      propertyPath: m_Text
+      value: Press Any Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 114443235807858842, guid: 8d6c5a64395cc7a45b8b0689bad9864c,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Antoine Basse : Art, Additional Game Design'
+      objectReference: {fileID: 0}
     - target: {fileID: 1969825245947040, guid: 8d6c5a64395cc7a45b8b0689bad9864c, type: 3}
       propertyPath: m_IsActive
       value: 1
