@@ -18,6 +18,8 @@ public class CubeDestroyer : Tile
         GameObject cube = tileObject.gameObject;
         cube.SetActive(false);
         m_DestroyedCubes.Push(cube);
+        GameObject flash = Instantiate(RessourceManager.LoadPrefab("Flash"));
+        flash.transform.position = transform.position;
     }
 
     public override void UndoRule()
