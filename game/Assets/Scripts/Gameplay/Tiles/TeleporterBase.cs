@@ -19,7 +19,7 @@ public class TeleporterBase : Tile
     public override bool EvaluateRule()
     {
         TileObject tileObject = GetTileObject();
-        if (tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube)
+        if (tileObject != null && tileObject.IsCube())
         {
             return GetOtherEnd().CanReceive();
         }
@@ -45,7 +45,7 @@ public class TeleporterBase : Tile
     {
         TileObject tileObject = GetTileObject();
         TeleporterBase otherEnd = GetOtherEnd();
-        if (tileObject != null && tileObject.GetObjectType() == ETileObjectType.Cube)
+        if (tileObject != null && tileObject.IsCube())
         {
             if (otherEnd.CanReceive())
             {

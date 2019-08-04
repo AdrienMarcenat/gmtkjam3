@@ -5,7 +5,7 @@ public class Goal : Tile
     {
         TileObject tileObject = GetTileObject();
         return tileObject != null 
-            && tileObject.GetObjectType() == ETileObjectType.Cube 
+            && tileObject.IsCube()
             && tileObject.tag == "GoldCube";
     }
 

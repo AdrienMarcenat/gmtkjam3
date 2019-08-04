@@ -10,6 +10,8 @@ public enum ETileType
     Emitter,
     Receiver,
     CubeDestroyer,
+    Door,
+    Key,
 }
 
 public enum EDirection

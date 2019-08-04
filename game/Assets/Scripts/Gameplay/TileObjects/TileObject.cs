@@ -5,6 +5,8 @@ public enum ETileObjectType
     None,
     Player,
     Cube,
+    TwinCube,
+    OneWayCube,
 }
 
 public class TileObject : MonoBehaviour
@@ -99,5 +101,12 @@ public class TileObject : MonoBehaviour
     protected void PushCommand(Command command)
     {
         m_CommandStack.PushCommand(command);
+    }
+
+    public bool IsCube()
+    {
+        return m_Type == ETileObjectType.Cube
+            || m_Type == ETileObjectType.TwinCube
+            || m_Type == ETileObjectType.OneWayCube;
     }
 }

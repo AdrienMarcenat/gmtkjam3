@@ -1,0 +1,4 @@
+﻿Wall   Wall   Wall   Wall   Wall    Wall   Wall   Wall   Wall
+Normal Goal   Normal Normal Key,5   Door   Normal Normal Normal
+None   None   Player None   None    None   Cube,1 None   None
+Wall   Wall   Wall   Wall   Wall    Wall   Wall   Wall   Wall
