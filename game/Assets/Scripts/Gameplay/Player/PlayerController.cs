@@ -6,15 +6,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_UndoPerSecond = 10;
     [SerializeField] private int m_RapidUndoPerSecond = 20;
     [SerializeField] private float m_HeldUndoTreshold = 2f;
+    [SerializeField] private AudioClip m_MoveCubeSound;
 
     private EDirection m_FacingDirection = EDirection.Right;
     private bool m_IsUndoing = false;
     private float m_TimeHoldingUndo = 0f;
     private MovingTileObject m_MovingTileObject;
+    private SpriteRenderer m_Sprite;
 
     void Awake ()
     {
         m_MovingTileObject = GetComponent<MovingTileObject>();
+        m_Sprite = GetComponent<SpriteRenderer>();
         this.RegisterAsListener ("Player", typeof(PlayerInputGameEvent));
     }
 
@@ -37,9 +40,11 @@ public class PlayerController : MonoBehaviour
             {
                 case "Right":
                     TryMove(1, 0);
+                    m_Sprite.flipX = true;
                     break;
                 case "Left":
                     TryMove(-1, 0);
+                    m_Sprite.flipX = false;
                     break;
                 case "Up":
                     TryMove(0, 1);

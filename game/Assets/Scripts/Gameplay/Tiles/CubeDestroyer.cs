@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CubeDestroyer : Tile
 {
+    [SerializeField] private AudioClip m_DestroySound;
     private Stack<GameObject> m_DestroyedCubes = new Stack<GameObject>();
 
     public override bool EvaluateRule()
@@ -20,6 +21,7 @@ public class CubeDestroyer : Tile
         m_DestroyedCubes.Push(cube);
         GameObject flash = Instantiate(RessourceManager.LoadPrefab("Flash"));
         flash.transform.position = transform.position;
+        SoundManagerProxy.Get().PlayMultiple(m_DestroySound);
     }
 
     public override void UndoRule()
